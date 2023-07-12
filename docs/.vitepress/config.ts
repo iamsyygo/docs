@@ -4,7 +4,7 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: 'Aoe',
   lang: 'zh-CN',
-  base: '/aoe-docs/',
+  base: '/docs/',
   description: '开发文档、规范、示例等...',
   cleanUrls: true,
   lastUpdated: true,
