@@ -70,8 +70,17 @@ jobs:
           password: ${{ secrets.EMAIL_PASSWORD }}
           subject: ${{ github.event.head_commit.message }}
           body: |
-            ${{ github.event.head_commit.message }}
-            ${{ github.event.head_commit.url }}
+            本次部署来自 ${{ github.actor }}
+            本次部署的 commit 信息为 ${{ github.event.head_commit.message }}
+            本次部署的 commit id 为 ${{ github.event.head_commit.id }}
+            本次部署的 commit 地址为 ${{ github.event.head_commit.url }}
+            本次部署的时间为 ${{ github.event.head_commit.timestamp }}
+            本次部署所在的分支为 ${{ github.event.ref }}
+            本次部署所用的操作系统为 ${{ runner.os }}
+            本次部署所用的运行器为 ${{ runner.runner }}
+            本次部署所用的运行器版本为 ${{ runner.version }}
+            本次部署所用的时间为 ${{ github.run_number }}
+
           to: ${{ secrets.EMAIL_USERNAME }}
           from: ${{ secrets.EMAIL_USERNAME }}
           content_type: text/plain
