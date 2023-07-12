@@ -42,14 +42,14 @@ jobs:
         run: pnpm docs:build
 
       # 部署到 GitHub Pages
-      - name: 部署
+      - name: 部署，迁移至 gh-pages 分支
         # 使用别人写好的一个 action
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
           # 这里的 ACCESS_TOKEN 名字需要和下文中的相对应
           # ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
 
-          FOLDER: docs/.vuepress/dist
+          FOLDER: docs/.vitepress/dist
 
           # 打包后的文件部署到哪个分支上
           BRANCH: gh-pages
