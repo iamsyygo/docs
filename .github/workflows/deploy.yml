@@ -27,6 +27,13 @@ jobs:
           node-version: 16.18.0
           registry-url: https://registry.npm.taobao.org
 
+      - name: 检查环境
+        # 判断是否存在 pnpm，如果不存在就安装
+        run: |
+          if [ ! -x "$(command -v pnpm)" ]; then
+            npm install -g pnpm
+          fi
+
       - name: 安装依赖
         run: pnpm install --frozen-lockfile
       # 打包
@@ -40,7 +47,7 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@releases/v3
         with:
           # 这里的 ACCESS_TOKEN 名字需要和下文中的相对应
-          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          # ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
           # 打包后的文件部署到哪个分支上
           BRANCH: gh-pages
           # 打包后的文件在哪里
