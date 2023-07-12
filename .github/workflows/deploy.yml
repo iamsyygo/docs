@@ -1,0 +1,33 @@
+name: 自动部署Docs
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: pnpm/action-setup@v2
+        with:
+          # pnpm 版本 >= 7.6.3
+          version: 7.6.3
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+        with:
+          # node 版本 >= 16.18.0
+          node-version: 16.18.0
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+
+      - name: 打包
+        run: pnpm docs:build
+
+      - name: 部署
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: docs/.vitepress/dist
