@@ -47,9 +47,31 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           # 这里的 ACCESS_TOKEN 名字需要和下文中的相对应
-          # ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          ACCESS_TOKEN: ${{ secrets.SECRET_DOCS }}
 
           FOLDER: docs/.vitepress/dist
 
           # 打包后的文件部署到哪个分支上
           BRANCH: gh-pages
+
+          # 保留历史记录
+          # PERSIST_HISTORY: true
+
+          # 保留 CNAME 文件
+          # PERSIST_CNAME: true
+
+        # 发送通知
+      # - name: 发送通知 - 邮箱
+      #   uses: dawidd6/action-send-mail@v2
+      #   with:
+      #     server_address: smtp.qq.com
+      #     server_port: 465
+      #     username: ${{ secrets.EMAIL_USERNAME }}
+      #     password: ${{ secrets.EMAIL_PASSWORD }}
+      #     subject: ${{ github.event.head_commit.message }}
+      #     body: |
+      #       ${{ github.event.head_commit.message }}
+      #       ${{ github.event.head_commit.url }}
+      #     to: ${{ secrets.EMAIL_TO }}
+      #     from: ${{ secrets.EMAIL_FROM }}
+      #     content_type: text/plain
