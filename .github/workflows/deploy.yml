@@ -18,7 +18,7 @@ jobs:
         with:
           persist-credentials: false
           # 拉取深度为 0，这样就可以拉取所有分支的 commit 记录
-          fetch-depth: 0
+          # fetch-depth: 0
 
       - name: 安装 node 环境
         # node 环境 >= 16.18.0
