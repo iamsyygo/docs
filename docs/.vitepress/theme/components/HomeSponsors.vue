@@ -1,64 +1,25 @@
-<script setup lang="ts">
-import { VPHomeSponsors } from 'vitepress/theme'
-import { useSponsor } from '../composables/sponsor'
-
-const { data } = useSponsor()
-</script>
-
 <template>
-  <VPHomeSponsors
-    v-if="data"
-    message="Vite is free and open source, made possible by wonderful sponsors."
-    :data="data" />
-  <div class="action">
-    <a
-      class="sponsor"
-      href="https://github.com/sponsors/vitejs"
-      target="_blank"
-      rel="noreferrer">
-      Sponsor Vite
-    </a>
-    <a
-      class="sponsor"
-      href="https://github.com/sponsors/yyx990803"
-      target="_blank"
-      rel="noreferrer">
-      Sponsor Evan You
-    </a>
+  <div class="home-sponsors-warp">
+    <!-- <text-rotation :list="list" /> -->
   </div>
 </template>
 
+<script setup lang="ts">
+import { reactive } from 'vue'
+// import TextRotation from './TextRotation.vue'
+const list = reactive([
+  '货拉拉，拉货搬家的货运平台',
+  '丁香医生，一起发现健康生活',
+  '小米运动，智能穿戴管理平台',
+  '飞猪旅行，特价票限时抢购',
+  '微光，遇见温暖的陪伴',
+  '淘票票，淘出好时光',
+])
+</script>
+
 <style scoped>
-.action {
-  display: flex;
-  justify-content: center;
-  gap: 1rem;
-  padding-top: 4rem;
-}
-
-.sponsor {
-  /* .VPButton */
-  display: inline-block;
-  border: 1px solid transparent;
-  text-align: center;
-  font-weight: 600;
-  white-space: nowrap;
-  transition: color 0.25s, border-color 0.25s, background-color 0.25s;
-  /* .VPButton.medium */
-  border-radius: 20px;
-  padding: 0 20px;
-  line-height: 38px;
-  font-size: 14px;
-  /* .VPButton.sponsor */
-  border-color: var(--vp-button-sponsor-border);
-  color: var(--vp-button-sponsor-text);
-  background-color: var(--vp-button-sponsor-bg);
-}
-
-.sponsor:hover {
-  /* .VPButton.sponsor:hover */
-  border-color: var(--vp-button-sponsor-hover-border);
-  color: var(--vp-button-sponsor-hover-text);
-  background-color: var(--vp-button-sponsor-hover-bg);
+.home-sponsors-warp {
+  width: 100%;
+  height: 300px;
 }
 </style>

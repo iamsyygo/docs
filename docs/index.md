@@ -4,8 +4,8 @@ layout: home
 
 hero:
   name: 'Aoe'
-  text: '文档、规范、示例等...'
-  tagline: Documentation, Specification, Examples, etc...
+  text: '文档、笔记、工具...'
+  tagline: Documentation, Notes, Tools...
   image:
     src: /logo.svg
     alt: Aoe
