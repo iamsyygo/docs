@@ -11,6 +11,10 @@ jobs:
   build-and-deploy:
     # 服务器环境：最新版 Ubuntu
     runs-on: ubuntu-latest
+    env:
+      EMAIL_USERNAME: ${{ secrets.EMAIL_USERNAME }}
+      EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+
     steps:
       # 拉取代码
       - name: 拉取代码
@@ -36,8 +40,8 @@ jobs:
 
       - name: 安装依赖
         run: pnpm install --no-frozen-lockfile  --prefer-offline
-      # 打包
 
+      # 打包
       - name: 打包
         run: pnpm docs:build
 

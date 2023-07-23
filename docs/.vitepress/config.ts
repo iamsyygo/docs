@@ -42,9 +42,9 @@ export default defineConfig({
   markdown: {
     // theme: '',
     // anchor: {},
-    config(md) {
-      md.use(textTagTransform)
-    },
+    // config(md) {
+    //   md.use(textTagTransform)
+    // },
   },
   vite: {
     plugins: [],
