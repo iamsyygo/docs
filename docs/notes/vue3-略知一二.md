@@ -133,8 +133,6 @@ watch(state, (newValue, oldValue) => {
 > // or
 > watch(state, () => {})
 >
-> // --------------------------------------------
->
 > // 当 state.value 中的某个字段变化时触发回调
 > watch(
 >   () => state.value[0],
