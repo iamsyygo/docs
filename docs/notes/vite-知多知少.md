@@ -169,7 +169,7 @@ export default defineConfig({
 
 🎢 请求 vue 文件经过编译后的代码：
 
-![](./assets/202307232317124.png)
+![](https://cdn.jsdelivr.net/gh/iamsyygo/Store@master/image/202307232317124.png)
 
 源代码：
 
