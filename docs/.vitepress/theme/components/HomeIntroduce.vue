@@ -16,7 +16,7 @@
 import { onMounted, reactive, PropType, getCurrentScope, ref } from 'vue'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-gsap.registerPlugin(ScrollTrigger)
+// gsap.registerPlugin(ScrollTrigger)
 
 interface IntroduceItem {
   title: string
@@ -55,13 +55,13 @@ const initGsapScroll = (target: HTMLElement) => {
     duration: 1,
   })
 
-  desc.value!.childNodes.forEach((item, index) => {
-    tl.to(item, {
-      opacity: 1,
-      x: 0,
-      duration: 0.5,
-    })
-  })
+  // desc.value!.childNodes.forEach((item, index) => {
+  //   tl.to(item, {
+  //     opacity: 1,
+  //     x: 0,
+  //     duration: 0.5,
+  //   })
+  // })
 }
 onMounted(() => {
   initGsapScroll(left.value!)
