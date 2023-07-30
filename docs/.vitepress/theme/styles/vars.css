@@ -4,6 +4,8 @@
 
 :root {
   scroll-behavior: smooth;
+  /* 1rem = 10px */
+  font-size: 1.3333333333333333vw;
 }
 
 /**
@@ -46,6 +48,64 @@
 
   --vp-home-hero-image-background-image: linear-gradient(-45deg, #507bf1 50%, #47caff 50%);
   --vp-home-hero-image-filter: blur(40px);
+}
+
+/**
+ * Base styles class
+ * -------------------------------------------------------------------------- */
+.ml5 {
+  margin-left: 5px;
+}
+.ml10 {
+  margin-left: 10px;
+}
+.ml15 {
+  margin-left: 15px;
+}
+.mr5 {
+  margin-right: 5px;
+}
+.mr10 {
+  margin-right: 10px;
+}
+.mr15 {
+  margin-right: 15px;
+}
+.mt5 {
+  margin-top: 5px;
+}
+.mt10 {
+  margin-top: 10px;
+}
+.mt15 {
+  margin-top: 15px;
+}
+.mb5 {
+  margin-bottom: 5px;
+}
+.mb10 {
+  margin-bottom: 10px;
+}
+.mb15 {
+  margin-bottom: 15px;
+}
+.pt5 {
+  padding-top: 5px;
+}
+.pt10 {
+  padding-top: 10px;
+}
+.pt15 {
+  padding-top: 15px;
+}
+.pb5 {
+  padding-bottom: 5px;
+}
+.pb10 {
+  padding-bottom: 10px;
+}
+.pb15 {
+  padding-bottom: 15px;
 }
 
 @media (min-width: 640px) {
@@ -139,5 +199,18 @@
 }
 
 .VPFeature {
-  border: none;
+  border: none !important;
+}
+
+.vp-doc blockquote {
+  cursor: pointer;
+  border-left: 3px solid var(--vp-c-brand);
+  background-color: var(--vp-c-bg-soft);
+  padding: 5px 10px;
+  border-radius: 3px;
+  /* transition: all 0.3s;
+  &:hover {
+    background-color: var(--vp-c-bg-soft-down);
+    box-shadow: 0 0 1px 1px var(--vp-c-bg-soft-down);
+  } */
 }

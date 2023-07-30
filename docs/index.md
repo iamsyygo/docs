@@ -12,7 +12,7 @@ hero:
   actions:
     - theme: brand
       text: 开始阅读 🥽
-      link: /markdown-examples
+      link: /notes/vue3-略知一二
     - theme: alt
       text: API 示例 🌰
       link: /api-examples

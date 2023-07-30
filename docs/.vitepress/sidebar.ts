@@ -6,9 +6,9 @@ const sidebar: DefaultTheme.Config['sidebar'] = {
       collapsed: true,
       items: [
         { text: '🏟️ vue3 略知一二', link: '/notes/vue3-略知一二' },
-        { text: '⛵️ vite-知多知少', link: '/notes/vite-知多知少' },
+        { text: '⛵️ vite 知多知少', link: '/notes/vite-知多知少' },
+        { text: '🛟 rem+vw', link: '/notes/rem+vw' },
         { text: 'Pnpm and Monorepo', link: '/notes/pnpm-monorepo' },
-        { text: 'Runtime API Examples', link: '/notes/api-examples' },
       ],
     },
   ],

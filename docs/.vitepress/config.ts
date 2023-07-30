@@ -1,5 +1,5 @@
 import { defineConfig } from 'vitepress'
-import vue from '@vitejs/plugin-vue'
+// import vue from '@vitejs/plugin-vue'
 import sidebar from './sidebar'
 import textTagTransform from './plugins/textTagTransform'
 
@@ -40,7 +40,7 @@ export default defineConfig({
   },
   // appearance: true,
   markdown: {
-    // theme: '',
+    theme: 'material-theme-palenight',
     // anchor: {},
     // config(md) {
     //   md.use(textTagTransform)
@@ -48,5 +48,12 @@ export default defineConfig({
   },
   vite: {
     plugins: [],
+  },
+  vue: {
+    script: {
+      defineModel: true,
+      propsDestructure: true,
+    },
+    //
   },
 })
