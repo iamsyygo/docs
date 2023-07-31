@@ -17,7 +17,7 @@ export default defineConfig({
       {
         rel: 'icon',
         type: 'image/svg+xml',
-        href: '/logo.svg',
+        href: '/docs/logo.svg',
       },
     ],
     [
@@ -60,23 +60,23 @@ export default defineConfig({
   },
   vite: {
     plugins: [],
-    optimizeDeps: {
-      include: ['gsap'],
-    },
-    build: {
-      rollupOptions: {
-        // 将 'gsap/ScrollTrigger.js' 标记为外部依赖，不会被打包到输出文件中
-        external: ['gsap'],
-        output: {
-          // 对于 'gsap/ScrollTrigger.js'，采用 IIFE 格式进行输出
-          // 这样它在浏览器中可以正确加载和使用 CommonJS 模块
-          format: 'esm',
-          globals: {
-            gsap: 'gsap', // 将 'gsap/ScrollTrigger.js' 映射为全局对象 'gsap'
-          },
-        },
-      },
-    },
+    // optimizeDeps: {
+    //   include: ['gsap'],
+    // },
+    // build: {
+    //   rollupOptions: {
+    //     // 将 'gsap/ScrollTrigger.js' 标记为外部依赖，不会被打包到输出文件中
+    //     external: ['gsap'],
+    //     output: {
+    //       // 对于 'gsap/ScrollTrigger.js'，采用 IIFE 格式进行输出
+    //       // 这样它在浏览器中可以正确加载和使用 CommonJS 模块
+    //       format: 'esm',
+    //       globals: {
+    //         gsap: 'gsap', // 将 'gsap/ScrollTrigger.js' 映射为全局对象 'gsap'
+    //       },
+    //     },
+    //   },
+    // },
   },
   vue: {
     script: {
