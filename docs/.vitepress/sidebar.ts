@@ -8,6 +8,7 @@ const sidebar: DefaultTheme.Config['sidebar'] = {
         { text: '🏟️ vue3 略知一二', link: '/notes/vue3-略知一二' },
         { text: '⛵️ vite 知多知少', link: '/notes/vite-知多知少' },
         { text: '🛟 rem+vw', link: '/notes/rem+vw' },
+        { text: '🛥️ el-collapse-transition 看一看', link: '/notes/el-collapse-transition' },
         { text: 'Pnpm and Monorepo', link: '/notes/pnpm-monorepo' },
       ],
     },
