@@ -15,7 +15,7 @@
 <script setup lang="ts">
 import { onMounted, reactive, PropType, getCurrentScope, ref } from 'vue'
 import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+// import { ScrollTrigger } from 'gsap/ScrollTrigger'
 // gsap.registerPlugin(ScrollTrigger)
 
 interface IntroduceItem {
@@ -33,7 +33,6 @@ const desc = ref<HTMLElement | null>()
 const { values = {} } = defineProps<{
   values: IntroduceItem
 }>()
-
 const initGsapScroll = (target: HTMLElement) => {
   const tl = gsap.timeline({
     scrollTrigger: {
@@ -64,7 +63,12 @@ const initGsapScroll = (target: HTMLElement) => {
   // })
 }
 onMounted(() => {
-  initGsapScroll(left.value!)
+  setTimeout(() => {
+    // @ts-ignore
+    console.log(window.ScrollTrigger)
+    gsap.registerPlugin(window.ScrollTrigger)
+    initGsapScroll(left.value!)
+  }, 500)
 })
 </script>
 

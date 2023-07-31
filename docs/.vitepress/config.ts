@@ -20,13 +20,18 @@ export default defineConfig({
         href: '/logo.svg',
       },
     ],
-    // https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js
     [
       'script',
       {
         src: 'https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js',
       },
     ],
+    // [
+    //   'script',
+    //   {
+    //     src: 'https://unpkg.co/gsap@3/dist/gsap.min.js',
+    //   },
+    // ],
   ],
   themeConfig: {
     logo: '/logo.svg',
