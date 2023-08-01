@@ -1,7 +1,9 @@
 import { defineConfig } from 'vitepress'
 // import vue from '@vitejs/plugin-vue'
+import { viteExternalsPlugin } from 'vite-plugin-externals'
 import sidebar from './sidebar'
 import textTagTransform from './plugins/textTagTransform'
+import { splitVendorChunkPlugin } from 'vite'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -23,7 +25,8 @@ export default defineConfig({
     [
       'script',
       {
-        src: 'https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js',
+        // src: 'https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js',
+        src: '/docs/ScrollTrigger.min.js',
       },
     ],
     // [
@@ -59,21 +62,33 @@ export default defineConfig({
     // },
   },
   vite: {
-    plugins: [],
+    plugins: [
+      // viteExternalsPlugin({
+      //   gsap: 'gsap',
+      // }),
+    ],
+    // plugins: [splitVendorChunkPlugin()],
     // optimizeDeps: {
     //   include: ['gsap'],
     // },
     // build: {
+    //   chunkSizeWarningLimit: 2000,
     //   rollupOptions: {
     //     // 将 'gsap/ScrollTrigger.js' 标记为外部依赖，不会被打包到输出文件中
     //     external: ['gsap'],
     //     output: {
     //       // 对于 'gsap/ScrollTrigger.js'，采用 IIFE 格式进行输出
     //       // 这样它在浏览器中可以正确加载和使用 CommonJS 模块
-    //       format: 'esm',
-    //       globals: {
-    //         gsap: 'gsap', // 将 'gsap/ScrollTrigger.js' 映射为全局对象 'gsap'
+    //       // globals: {
+    //       //   gsap: 'gsap', // 将 'gsap/ScrollTrigger.js' 映射为全局对象 'gsap'
+    //       // },
+    //       manualChunks(id) {
+    //         if (id.includes('node_modules')) {
+    //           return 'vendor'
+    //         }
     //       },
+    //       // 单独将 'gsap/ScrollTrigger.js' 打包为一个 chunk
+    //       // chunkFileNames: 'gsap/ScrollTrigger.js',
     //     },
     //   },
     // },

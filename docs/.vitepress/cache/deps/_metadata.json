@@ -1,30 +1,24 @@
 {
-  "hash": "96f0e759",
-  "browserHash": "9ed8a93c",
+  "hash": "ba28fa18",
+  "browserHash": "6e80f74c",
   "optimized": {
     "vue": {
       "src": "../../../../node_modules/.pnpm/vue@3.3.4/node_modules/vue/dist/vue.runtime.esm-bundler.js",
       "file": "vue.js",
-      "fileHash": "1bfac58a",
-      "needsInterop": false
-    },
-    "gsap": {
-      "src": "../../../../node_modules/.pnpm/gsap@3.12.2/node_modules/gsap/index.js",
-      "file": "gsap.js",
-      "fileHash": "1e79a590",
+      "fileHash": "57ca044e",
       "needsInterop": false
     },
     "ant-design-vue": {
       "src": "../../../../node_modules/.pnpm/ant-design-vue@4.0.0_vue@3.3.4/node_modules/ant-design-vue/es/index.js",
       "file": "ant-design-vue.js",
-      "fileHash": "bf6f4cc8",
+      "fileHash": "0d541c22",
       "needsInterop": false
     },
-    "gsap/dist/ScrollTrigger.min.js": {
-      "src": "../../../../node_modules/.pnpm/gsap@3.12.2/node_modules/gsap/dist/ScrollTrigger.min.js",
-      "file": "gsap_dist_ScrollTrigger__min__js.js",
-      "fileHash": "a5e73b86",
-      "needsInterop": true
+    "gsap": {
+      "src": "../../../../node_modules/.pnpm/gsap@3.12.2/node_modules/gsap/index.js",
+      "file": "gsap.js",
+      "fileHash": "44dd9a1f",
+      "needsInterop": false
     }
   },
   "chunks": {

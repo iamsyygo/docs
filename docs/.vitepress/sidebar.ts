@@ -9,6 +9,8 @@ const sidebar: DefaultTheme.Config['sidebar'] = {
         { text: '⛵️ vite 知多知少', link: '/notes/vite-知多知少' },
         { text: '🛟 rem+vw', link: '/notes/rem+vw' },
         { text: '🛥️ el-collapse-transition 看一看', link: '/notes/el-collapse-transition' },
+        { text: '🌈 Hex、RGB 也会看', link: '/notes/hex-rgb' },
+        { text: '🤿 进制 进击', link: '/notes/计算机进制' },
         { text: 'Pnpm and Monorepo', link: '/notes/pnpm-monorepo' },
       ],
     },
