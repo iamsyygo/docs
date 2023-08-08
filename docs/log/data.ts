@@ -6,8 +6,8 @@ interface LogContent {
 
 interface DataLog {
   color: string
-  title: string
   date: string
+  title: string
   list: LogContent[]
 }
 
