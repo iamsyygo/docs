@@ -2,9 +2,7 @@
 
 ### 📝 问题记录
 
-1、编译宏 defineAppConfig、definePageConfig 报 typescript 未定义错误
-
-- [x] 可能是创建的模板初始化时为配置完整类型导致的
+1、编译宏 defineAppConfig、definePageConfig 报 typescript 未定义错误，可能是创建的模板初始化时为配置完整类型导致的
 
 ```typescript
 // types/global.d.ts
@@ -54,9 +52,7 @@ pnpm add vant-weapp -S --production
 ```json
 {
   "miniprogramRoot": "./dist",
-  // ellipsis some code...
   "setting": {
-    // ellipsis some code...
     "packNpmManually": true,
     "packNpmRelationList": [
       {
@@ -156,3 +152,51 @@ pnpm add miniprogram-api-typings -D
   }
 }
 ```
+
+以上的 typescript 配置可以说是在开发跨端应用时配置的，如果是直接使用微信小程序开发工具开发，可以不用配置，但是也需要以另外一种方式来增强开发体验：
+
+- 前往 SDK 下载页面下载类型定义文件 `baas-wx.d.ts`
+- 将类型定义文件放至微信小程序 typescript 项目的 `typings` 目录中
+- 在 typings/index.d.ts 文件中添加引用
+
+```typescript
+/// <reference path="./baas-wx.d.ts" />
+```
+
+5、小程序底部 `tabbar` 和 顶部 `navigationbar` 信息计算
+**都是通过 `wx.getSystemInfoSync()` 获取系统信息，然后计算出来的**
+
+```typescript
+wx.getSystemInfoSync({
+  success: res => {
+    /**
+     * windowHeight: 窗口高度
+     * screenHeight: 屏幕高度
+     * statusBarHeight: 设备状态栏高度
+     * pixelRatio: 设备像素比
+     */
+    // 状态栏高度
+    const statusBarHeight = res.statusBarHeight
+    // 导航栏高度
+    const navigationBarHeight = 44
+    // 屏幕高度
+    const screenHeight = res.screenHeight
+    // 屏幕宽度
+    const screenWidth = res.screenWidth
+    // 屏幕像素比
+    const pixelRatio = res.pixelRatio
+    // 底部tabbar高度(无效，因为状态栏为自定义的)
+    // const tabBarHeight = (screenHeight - res.windowHeight - statusBarHeight) * pixelRatio
+
+    // 整个导航栏高度
+    const navigationHeight = statusBarHeight + navigationBarHeight
+
+    // 实践得出tabbar高度与导航栏高度一致
+    const tabBarHeight = navigationHeight + navigationBarHeight
+
+    // 窗口高度 windowHeigh = 视图窗口
+  },
+})
+```
+
+<!-- > ![](https://cdn.jsdelivr.net/gh/iamsyygo/Store@master/image/202308092141431.png) -->
