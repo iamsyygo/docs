@@ -13,7 +13,7 @@ const sidebar: DefaultTheme.Config['sidebar'] = {
         { text: '🤿 进制 进击', link: '/notes/计算机进制' },
         { text: '🌴 taro 问题记录', link: '/notes/taro-问题记录' },
         { text: '🎢 TypeScript 类型声明文件', link: '/notes/ts 类型声明文件介绍' },
-        { text: '🐳 vite `import.meta.glob` 实现', link: `/notes/实现import\_glob` },
+        { text: '🐳 vite `import.meta.glob` 实现', link: `/notes/实现import-glob` },
         { text: 'Pnpm and Monorepo', link: '/notes/pnpm-monorepo' },
       ],
     },
