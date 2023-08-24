@@ -23,6 +23,12 @@ export const typeMap = {
 const data: DataLog[] = [
   {
     color: '#3eaf7c',
+    title: '二🐑还在学习ing...',
+    date: '2023-08-24',
+    list: [{ text: '添加实现import_glob文档', type: 'add' }],
+  },
+  {
+    color: '#3eaf7c',
     title: '好快好快一年，就已经快到国庆了🥶',
     date: '2023-08-21',
     list: [{ text: '添加ts 类型声明文件介绍文档', type: 'add' }],
