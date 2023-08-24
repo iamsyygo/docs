@@ -325,3 +325,36 @@ for (const match of matches) {
 - `acorn` 库，一个小型、快速的 js 解析器，完全用 js 编写，可以帮助解析 js 代码，生成 AST。ci 工程中使用它来解析 `globNext` 中的参数，以便于对参数进行处理
 - `es-module-lexer` 库，也可以帮助解析 js 代码，生成 AST。作为性能示例，Angular 1 (720KiB) 在 5 毫秒内完全解析，而最快的 JS 解析器 Acorn 需要超过 100 毫秒。
 - `@types/estree` 能提供解析的 AST 类型定义，例如 `Program`、`ImportDeclaration`、`ImportExpression` 等
+- 记录 `ts` bug
+
+  ```typescript
+  // TODO: 待优化优化
+  interface ImportMeta {
+    globNext<T, Eager extends boolean = boolean>(
+      glob: string | string[],
+      options?: GlobOptions<Eager>,
+    ): Eager extends true ? Record<string, T> : Record<string, () => Promise<T>>
+  }
+
+  const data1 = import.meta.globNext<Module>('./utils/*.ts')
+  console.log('🛵 - imports', data1)
+
+  // [!code error]
+  const data2 = import.meta.globNext<Module>(['./utils/*.ts', '!**/index.ts'], { eager: true })
+  console.log('🚀 - imports', data2)
+  ```
+
+::: tip
+使用 `重载` 解决优化 ts 类型问题
+:::
+
+```typescript
+// chore: 优化类型体操，使用`重载`的方式
+interface ImportMeta {
+  globNext<T>(glob: string | string[], options?: GlobOptions<true>): Record<string, T>
+  globNext<T>(
+    glob: string | string[],
+    options?: GlobOptions<false>,
+  ): Record<string, () => Promise<T>>
+}
+```
