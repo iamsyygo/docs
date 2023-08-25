@@ -351,10 +351,11 @@ for (const match of matches) {
 ```typescript
 // chore: 优化类型体操，使用`重载`的方式
 interface ImportMeta {
-  globNext<T>(glob: string | string[], options?: GlobOptions<true>): Record<string, T>
+  // 此重载排序顶层，默认时异步
   globNext<T>(
     glob: string | string[],
     options?: GlobOptions<false>,
   ): Record<string, () => Promise<T>>
+  globNext<T>(glob: string | string[], options?: GlobOptions<true>): Record<string, T>
 }
 ```
