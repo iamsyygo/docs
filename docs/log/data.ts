@@ -23,7 +23,7 @@ export const typeMap = {
 const data: DataLog[] = [
   {
     color: '#3eaf7c',
-    title: '二🐑还在学习ing...',
+    title: '8、24！！！',
     date: '2023-08-24',
     list: [{ text: '添加实现import_glob文档', type: 'add' }],
   },
