@@ -312,6 +312,108 @@ for (const match of matches) {
 ![](https://cdn.jsdelivr.net/gh/iamsyygo/Store@master/image/202308242226766.png)
 ![](https://cdn.jsdelivr.net/gh/iamsyygo/Store@master/image/202308242225752.png)
 
+::: tip
+4、如何获取 `import.meta.globNext` 的第二个参数？？？
+:::
+
+- 改写 `match[1]`、`acorn` 解析方式，使用 `()` 包裹参数，或者 `[]` 也是可以的
+
+  ```typescript
+  const args = `(${match[1]})`
+
+  // or
+  const args = `[${match[1]}]`
+  ```
+
+  **在 js 中存在一种特殊的语法，将一段代码用 `()` 包裹，逗号分隔，可以将代码转换为表达式**，例如：
+  这会将最后一个表达式的值作为整个括号表达式的值赋值给变量，但是前面的表达式会被执行（合法的语法）
+
+  ```typescript
+  const a = (1, 2, 3) // 3
+
+  const s = (console.log('🐟'), 1, 2, 3) // 3
+  ```
+
+- 通过以上特殊语法方法和 `acorn`，能顺利的拿到第二个参数的值
+
+  ```typescript
+  const args = `[${match[1]}]`
+
+  // @ts-ignore
+  const ast = parse(args, { ecmaVersion: 'latest' }).body[0].expression as Literal | ArrayExpression
+
+  console.log(ast, '🚁 - ast')
+  ```
+
+  ![](https://cdn.jsdelivr.net/gh/iamsyygo/Store@master/image/202308261447235.png)
+
+  ```typescript
+  for (const match of matches) {
+    const args = `[${match[1]}]`
+
+    // @ts-ignore
+    const ast = parse(args, { ecmaVersion: 'latest' }).body[0].expression
+
+    const args1 = ast.elements[0] as Literal | ArrayExpression
+    const globs: string[] = []
+    if (args1.type === 'Literal' && typeof args1.value === 'string') {
+      globs.push(args1.value)
+    }
+
+    if (args1.type === 'ArrayExpression') {
+      for (const element of args1.elements) {
+        if (element?.type === 'Literal' && typeof element.value === 'string') {
+          globs.push(element.value)
+        }
+      }
+    }
+
+    const args2 = ast.elements[1] as ObjectExpression | undefined
+    const options: GlobOptions<boolean> = {}
+    if (args2?.type === 'ObjectExpression') {
+      for (const property of args2.properties) {
+        // @ts-expect-error
+        options[property.key.name] = property.value.value
+      }
+    }
+
+    // console.log('🚀 - globs', globs)
+    // console.log('🚀 - options', options)
+
+    const query = options?.as ? `?${options.as}` : ''
+
+    const files = await fg(globs, { cwd: dirname(id), dot: true })
+    const start = match.index!
+    const end = start + match[0].length
+
+    if (options.eager) {
+      // 同步处理
+      const imports = files
+        .map((file, idx) => `import * as ${importSyncPrefix}${idx} from '${file}${query}'`)
+        .join('\n')
+
+      // 在头部插入同步导入的代码
+      s.prepend(`${imports}\n`)
+
+      // 将 import.meta.globNext 替换为导入的变量
+      const replacement = `{ ${files
+        .map((_, idx) => `'${idx}':${importSyncPrefix}${idx}`)
+        .join(',\n')} }`
+      s.overwrite(start, end, replacement)
+    } else {
+      const replacement = `{ ${files
+        .map(file => `'${file}':()=>import('${file}${query}')`)
+        .join(',\n')} }`
+      s.overwrite(start, end, replacement)
+    }
+  }
+  ```
+
+  ![](https://cdn.jsdelivr.net/gh/iamsyygo/Store@master/image/202308261508142.png)
+  ![](https://cdn.jsdelivr.net/gh/iamsyygo/Store@master/image/202308261511555.png)
+  ![](https://cdn.jsdelivr.net/gh/iamsyygo/Store@master/image/202308261524972.png)
+  ![](https://cdn.jsdelivr.net/gh/iamsyygo/Store@master/image/202308261525330.png)
+
 ## 🛵 Harvest
 
 - `path.dirname` 获取文件所在目录
@@ -324,10 +426,17 @@ for (const match of matches) {
 - `magic-string` 库，可以帮助处理字符串，包括替换、删除、插入等操作。可以使用它对文件字符串进行修改而不需担心索引位置是否准确，并且可以帮助生成 `SourceMap`
 - `acorn` 库，一个小型、快速的 js 解析器，完全用 js 编写，可以帮助解析 js 代码，生成 AST。ci 工程中使用它来解析 `globNext` 中的参数，以便于对参数进行处理
 - `es-module-lexer` 库，也可以帮助解析 js 代码，生成 AST。作为性能示例，Angular 1 (720KiB) 在 5 毫秒内完全解析，而最快的 JS 解析器 Acorn 需要超过 100 毫秒。
+- 事实上 `rollup` 的 `transform` 钩子 de 上下文中也提供 `this.parse` 方法，可以帮助解析 js 代码，生成 AST，所以也可以使用 `rollup` 提供的 `this.parse` 方法来解析 `globNext` 中的参数，以便于对参数进行处理
 - `@types/estree` 能提供解析的 AST 类型定义，例如 `Program`、`ImportDeclaration`、`ImportExpression` 等
 - 记录 `ts` bug
+  对于 `Eager` 来说，它是会被 `options` 类型泛型映射的，也就是插入 options 之后，`Eager` 会被映射为 `true | false`，但是实际上效果并不是这样
 
   ```typescript
+  interface GlobOptions<E extends boolean> {
+    as: 'raw' | 'string' | 'url' | 'array' | 'object'
+    // options 的 eager 会映射到 ImportMeta 的泛型参数 Eager，所以 Eager 可不传
+    eager: E
+  }
   // TODO: 待优化优化
   interface ImportMeta {
     globNext<T, Eager extends boolean = boolean>(
@@ -359,3 +468,13 @@ interface ImportMeta {
   globNext<T>(glob: string | string[], options?: GlobOptions<true>): Record<string, T>
 }
 ```
+
+- 使用 `()` 包裹并且逗号分隔，这是在 js 中合法的，每一项都会被执行，但是只有最后一项的值会被返回 - 逗号操作符
+
+  ```typescript
+  const a = (1, 2, 3) // 3
+
+  const s = (console.log('🐟'), 1, 2, 3) // 3
+  ```
+
+- `@ts-expect-error vs @ts-ignore`：虽然两者都可以用于绕过类型检查错误，但建议使用 `@ts-expect-error` 来精确标记预期的错误，并在代码修复后能够及时发现和解决这些问题。尽量避免使用 `@ts-ignore` 因为它可能会掩盖真正的问题，导致代码质量下降。
